@@ -7,6 +7,8 @@ import {
     ListGroup
 } from 'mdc-react';
 
+import './index.scss';
+
 export default function AppDrawer({ lists }) {
     const menu = [
         {to: "/", title: "Задачи", icon: "home"},
@@ -48,6 +50,7 @@ export default function AppDrawer({ lists }) {
                                 key={item.id}
                                 component={NavLink}
                                 to={item.id}
+                                className="menu-list__item"
                                 >
                                 <ListItemGraphic>
                                     <Icon>list</Icon>

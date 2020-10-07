@@ -3,11 +3,11 @@ import { Switch, Route } from 'react-router-dom'
 
 import { get } from './api'
 
-import DBContext from './context/db';
+import DBContext from './contexts/db';
 
 import AppDrawer from './components/AppDrawer'
 import AppContent from './components/AppContent'
-import TodoList from './components/TodoList'
+import TodoList from './pages/TodoList'
 
 import './App.scss';
 

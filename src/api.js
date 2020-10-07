@@ -6,15 +6,16 @@ export function get(collectionName) {
         return query(collection)
             .get()
             .then(snapshot => {
+
                 const todos = snapshot.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data()
                 }));
 
                 return todos;
-            })
-            .catch(error => {
-                console.log("Error getting documents: ", error);
-            });
+        })
+        .catch(error => {
+            console.log("Error getting documents: ", error);
+        });
     }
 }

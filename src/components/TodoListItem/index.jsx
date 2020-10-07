@@ -1,12 +1,14 @@
 import React from 'react';
 import {
-    ListItem, ListItemGraphic, ListItemText, ListDivider,
+    ListItem, ListItemGraphic, ListItemText,
     Checkbox
 } from 'mdc-react';
 
+import './index.scss';
+
 export default function TodoListItem({ todo, onCompleteChange }){
     return (
-        <ListItem>
+        <ListItem className="todo-list__item">
             <ListItemGraphic>
                 <Checkbox
                     checked={todo.completed}
