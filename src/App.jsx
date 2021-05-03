@@ -18,11 +18,13 @@ export default function App() {
     get("lists")().then(setLists);
   }, []);
 
+  console.log({lists});
   return (
     <DBContext.Provider value={{ lists, get }}>
       <div className="app">
         <AppDrawer
-          lists={lists} />
+            title={'React Todo 2.0 - Firebase'}
+            lists={lists} />
 
         <AppContent>
           <Switch>
