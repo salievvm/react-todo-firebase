@@ -21,6 +21,9 @@ export const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
+    title: {
+        flexGrow: 1,
+    },
     menuButton: {
         marginRight: 36,
     },

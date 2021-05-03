@@ -17,6 +17,14 @@ let theme = createMuiTheme({
     //   typography: {
     //     fontFamily
     //   },
+    palette: {
+        primary: { // Blue
+            main: '#018FFB'
+        },
+        background: {
+            default: '#ededed'
+          },
+    }
 });
 
 theme.background = {
@@ -69,6 +77,11 @@ theme.overrides = {
             paddingLeft: `env(safe-area-inset-left)`,
             paddingRight: `env(safe-area-inset-right)`,
         }
+    },
+    MuiContainer: {
+        root: {
+            padding: '1rem'
+        },
     },
 };
 

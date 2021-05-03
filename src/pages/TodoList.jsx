@@ -7,6 +7,8 @@ import DBContext from '../contexts/db';
 import TodoList from '../components/Todo/TodoList';
 import TodoForm from '../components/Todo/TodoForm';
 import BackdropCustom from '../components/BackdropCustom'
+import { Typography } from '@material-ui/core';
+import LoaderCat from './../components/LoaderCat';
 
 export default function TodoListPage({ match }) {
     const [todos, setTodos] = useState([]);
@@ -46,14 +48,14 @@ export default function TodoListPage({ match }) {
     }
 
     let list;
-    if (db.lists && db.lists.length) {
+    if (match.params.listId && db.lists && db.lists.length) {
         list = db.lists.find(list => list.id === match.params.listId);
-    }
-
-    if (!list) return <Loader />;
+    } 
+    if (!list) return <LoaderCat />;
 
     return (
         <div id="todo-list-page" className="page">
+            <br /><Typography gutterBottom variant="subtitle1">Раздел: {list.title}</Typography>
             <TodoForm
                 onAdd={handleAdd}
                 listId={list.id} />

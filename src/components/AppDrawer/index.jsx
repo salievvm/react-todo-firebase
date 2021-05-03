@@ -21,9 +21,19 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import StarIcon from '@material-ui/icons/Star';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
+
+import WorkIcon from '@material-ui/icons/Work';
+import SchoolIcon from '@material-ui/icons/School';
+import HomeIcon from '@material-ui/icons/Home';
+
+import SwitchCustom from '../SwitchCustom'
+
 import { useStyles } from './style';
 
-export default function MiniDrawer({ lists, title }) {
+export default function MiniDrawer({ lists, title, handleDarkTheme }) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -37,9 +47,9 @@ export default function MiniDrawer({ lists, title }) {
     };
 
     const menu = [
-        { to: "/", title: "Задачи", icon: "home" },
-        { to: "/important", title: "Важное", icon: "star" },
-        { to: "/planned", title: "Запланированные", icon: "event" },
+        { to: "/", title: "Задачи", icon: <AssignmentIcon /> },
+        { to: "/important", title: "Важное", icon: <StarIcon /> },
+        { to: "/planned", title: "Запланированные", icon: <BookmarkIcon /> },
     ]
 
     return (
@@ -63,9 +73,10 @@ export default function MiniDrawer({ lists, title }) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap>
+                    <Typography variant="h6" className={classes.title} noWrap>
                         {title}
                     </Typography>
+                    <SwitchCustom edge="end" checked={theme.palette.type === 'dark' ? true : false} onChange={handleDarkTheme} />
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -95,23 +106,28 @@ export default function MiniDrawer({ lists, title }) {
                             button
                             // activeClassName="Mui-selected"
                             key={item.title}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                            <ListItemIcon>{item.icon}</ListItemIcon>
                             <ListItemText primary={item.title} />
                         </ListItem>
                     ))}
                 </List>
                 <Divider />
                 <List>
-                    {lists.map((item, index) => (
-                        <ListItem
+                    {lists.map((item, index) => {
+                        const Icon = item.title === 'Работа' ? <WorkIcon /> : (
+                            item.title === 'Учеба' ? <SchoolIcon /> : (
+                                item.title === 'Дом' ? <HomeIcon /> : <InboxIcon />
+                            )
+                        )
+                        return <ListItem
                             to={'/' + item.id + '/'}
                             activeClassName="Mui-selected"
                             component={NavLink}
                             button key={item.title}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                            <ListItemIcon>{Icon}</ListItemIcon>
                             <ListItemText primary={item.title} />
                         </ListItem>
-                    ))}
+                    })}
                 </List>
             </Drawer>
         </div>

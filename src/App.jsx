@@ -14,6 +14,10 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import themes from './themes'
 
 import './App.scss';
+import { Typography } from '@material-ui/core';
+import LoaderCat from './components/LoaderCat';
+
+const THEME_DEFAULT = localStorage.getItem('THEME_DEFAULT') || 'base';
 
 export default function App() {
     const [lists, setLists] = useState([]);
@@ -22,17 +26,40 @@ export default function App() {
         get("lists")().then(setLists);
     }, []);
 
+    const [theme, setTheme] = React.useState(THEME_DEFAULT);
+    const changeDarkTheme = (val) => {
+        const newTheme = val ? 'dark' : 'base';
+        setTheme(newTheme);
+        localStorage.setItem('THEME_DEFAULT', newTheme);
+    }
+
     return (
-        <ThemeProvider theme={themes['base']}>
+        <ThemeProvider theme={themes[theme]}>
             <DBContext.Provider value={{ lists, get, add, erase, update }}>
                 <div className="app">
                     <AppDrawer
-                        title={'React Todo 2.0 - Firebase'}
+                        handleDarkTheme={changeDarkTheme}
+                        title={'React Todo Cat Manager'}
                         lists={lists} />
 
                     <AppContent>
                         <Switch>
-                            <Route exact path="/:listId" component={TodoList} />
+                            <Route exact path={["/:listId"]} component={TodoList} />
+                            <Route default render={() =>
+                                <>
+                                    <div className="main-page-container">
+                                        <LoaderCat />
+                                        <div>
+                                            <Typography variant="h5">Добро пожаловать в</Typography>
+                                            <Typography color="secondary" variant="h5">React Todo Cat Manager</Typography>
+                                        </div>
+                                    </div>
+                                    <Typography style={{ position: 'absolute', bottom: 16, right: 16 }} variant="caption">
+                                        Работает на технологии&nbsp;
+                                        <a style={{color: "#ffa610", textDecoration: 'none'}} href="https://firebase.google.com/docs/firestore" target="_blank">Firebase</a>
+                                    </Typography>
+                                </>
+                            } />
                         </Switch>
                     </AppContent>
                 </div>

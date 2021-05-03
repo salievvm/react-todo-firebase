@@ -15,6 +15,6 @@ export const useStyles = makeStyles((theme) => ({
         minWidth: 230,
     },
     form: {
-        backgroundColor: '#fff'
+        backgroundColor: theme.palette.background.paper,
     }
 }));
