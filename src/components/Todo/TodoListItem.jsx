@@ -10,8 +10,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import BackdropCustom from '../BackdropCustom'
 
-export default function CheckboxList({ todo, labelId, onCompleteChange, checked, onErase }) {
-    // const checked = todo.completed;
+export default function CheckboxList({ todo, labelId, onCompleteChange, onErase }) {
+    const checked = todo.completed;
 
     const [loading, setLoading] = React.useState(false);
     const handleDelete = e => {
@@ -23,11 +23,11 @@ export default function CheckboxList({ todo, labelId, onCompleteChange, checked,
 
     return (
         <>
-            <ListItem key={todo.id} role={undefined} dense button onClick={() => onCompleteChange(todo.id)}>
+            <ListItem key={todo.id} role={undefined} dense button onClick={() => onCompleteChange(todo.id, !checked)}>
                 <ListItemIcon>
                     <Checkbox
                         edge="start"
-                        checked={checked.indexOf(todo.id) !== -1}
+                        checked={checked}
                         tabIndex={-1}
                         disableRipple
                         inputProps={{ 'aria-labelledby': labelId }}

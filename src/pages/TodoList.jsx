@@ -34,6 +34,7 @@ export default function TodoListPage({ match }){
                 add={db.add}
                 listId={list.id} />
             <TodoList
+                onUpdate={db.update}
                 onErase={db.erase}
                 list={list}
                 todos={todos}

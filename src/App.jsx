@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Switch, Route } from 'react-router-dom'
 
-import { get, add, erase } from './api'
+import { get, add, erase, update } from './api'
 
 import DBContext from './contexts/db';
 
@@ -19,7 +19,7 @@ export default function App() {
   }, []);
 
   return (
-    <DBContext.Provider value={{ lists, get, add, erase }}>
+    <DBContext.Provider value={{ lists, get, add, erase, update }}>
       <div className="app">
         <AppDrawer
             title={'React Todo 2.0 - Firebase'}

@@ -44,3 +44,16 @@ export function erase(collectionName, id, cb) {
             if (typeof cb === 'function') cb();
         });
 }
+
+export function update(collectionName, id, data, cb) {
+    db.collection(collectionName)
+        .doc(id)
+        .set(data, { merge: true })
+        .then(() => {
+            console.log("Document successfully updated!");
+            if (typeof cb === 'function') cb();
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+            if (typeof cb === 'function') cb();
+        });
+}
