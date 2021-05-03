@@ -1,35 +1,37 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 
 import {
     List, ListItem,
     TextField
 } from '@material-ui/core';
 
+import BackdropCustom from '../BackdropCustom'
 import Button from '@material-ui/core/Button';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
-const useStyles = makeStyles((theme) => ({
-    button: {
-      marginLeft: theme.spacing(1),
-    },
-    textField: {
-        minWidth: 230,
-    },
-    form: {
-        backgroundColor: '#fff'
-    }
-  }));
+import { useStyles } from './style'
 
-export default function TodoForm() {
+export default function TodoForm(props) {
+    const { add, listId } = props;
+
     const classes = useStyles();
+    const [loading, setLoading] = React.useState(false);
+
     const [title, setTitle] = React.useState('Cat in the Hat');
     const handleChange = (event) => {
         setTitle(event.target.value);
     };
 
+    const handleSubmit = e => {
+        e.preventDefault();
+        setLoading(true);
+        add("todos", { title, listId }, () => {
+            setLoading(false);
+        });
+    }
+
     return (
-        <form className="todo-form">
+        <form onSubmit={handleSubmit} className="todo-form">
             <List>
                 <ListItem className={classes.form}>
                     <TextField
@@ -39,6 +41,7 @@ export default function TodoForm() {
                         onChange={handleChange}
                     />
                     <Button
+                        type="submit"
                         variant="contained"
                         color="secondary"
                         size="medium"
@@ -47,6 +50,7 @@ export default function TodoForm() {
                     >Добавить задачу</Button>
                 </ListItem>
             </List>
+            {loading ? <BackdropCustom /> : null}
         </form>
     );
 }

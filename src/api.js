@@ -13,9 +13,23 @@ export function get(collectionName) {
                 }));
 
                 return todos;
-        })
-        .catch(error => {
-            console.log("Error getting documents: ", error);
-        });
+            })
+            .catch(error => {
+                console.log("Error getting documents: ", error);
+            });
     }
+}
+
+export function add(collectionName, data, cb) {
+    // Add a new document with a generated id.
+    db.collection(collectionName).add(data)
+        .then((docRef) => {
+            console.log("Document written with ID: ", docRef.id);
+            cb();
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+            cb();
+        });
+
 }
