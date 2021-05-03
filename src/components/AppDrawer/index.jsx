@@ -45,7 +45,7 @@ export default function AppDrawer({ lists }) {
                     <ListDivider element='hr' />
 
                     <List>
-                        {lists.map(item => (
+                        {lists ? lists.map(item => (
                             <ListItem 
                                 key={item.id}
                                 component={NavLink}
@@ -59,7 +59,7 @@ export default function AppDrawer({ lists }) {
                                     {item.title}
                                 </ListItemText>
                             </ListItem>
-                        ))}
+                        )) : null}
                     </List>
                 </ListGroup>
             </DrawerContent>

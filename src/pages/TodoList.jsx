@@ -13,6 +13,7 @@ import TodoForm from '../components/TodoForm';
 export default function TodoListPage({ match }){
     const [ todos, setTodos ] = useState([]);
     const db = useContext(DBContext);
+    console.log({db});
     const matchCondition = ['listId', '==', match.params.listId];
 
     useEffect(() => {
@@ -24,7 +25,7 @@ export default function TodoListPage({ match }){
 
     let list;
 
-    if (db.lists.length > 0) {
+    if (db.lists && db.lists.length > 0) {
         list = db.lists.find(list => list.id === match.params.listId);
     } 
 
