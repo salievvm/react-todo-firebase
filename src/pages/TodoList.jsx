@@ -30,8 +30,11 @@ export default function TodoListPage({ match }){
 
     return (
         <div id="todo-list-page" className="page">
-            <TodoForm add={db.add} listId={list.id} />
+            <TodoForm 
+                add={db.add}
+                listId={list.id} />
             <TodoList
+                onErase={db.erase}
                 list={list}
                 todos={todos}
             />

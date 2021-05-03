@@ -6,27 +6,41 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
+import DeleteIcon from '@material-ui/icons/Delete';
 
-export default function CheckboxList({ todo, labelId, onCompleteChange, checked }) {
+import BackdropCustom from '../BackdropCustom'
+
+export default function CheckboxList({ todo, labelId, onCompleteChange, checked, onErase }) {
     // const checked = todo.completed;
 
+    const [loading, setLoading] = React.useState(false);
+    const handleDelete = e => {
+        setLoading(true);
+        onErase("todos", todo.id, () => {
+            setLoading(false);
+        })
+    }
+
     return (
-        <ListItem key={todo.id} role={undefined} dense button onClick={() => onCompleteChange(todo.id)}>
-            <ListItemIcon>
-                <Checkbox
-                    edge="start"
-                    checked={checked.indexOf(todo.id) !== -1}
-                    tabIndex={-1}
-                    disableRipple
-                    inputProps={{ 'aria-labelledby': labelId }}
-                />
-            </ListItemIcon>
-            <ListItemText id={labelId} primary={todo.title} />
-            <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="comments">
-                    <CommentIcon />
-                </IconButton>
-            </ListItemSecondaryAction>
-        </ListItem>
+        <>
+            <ListItem key={todo.id} role={undefined} dense button onClick={() => onCompleteChange(todo.id)}>
+                <ListItemIcon>
+                    <Checkbox
+                        edge="start"
+                        checked={checked.indexOf(todo.id) !== -1}
+                        tabIndex={-1}
+                        disableRipple
+                        inputProps={{ 'aria-labelledby': labelId }}
+                    />
+                </ListItemIcon>
+                <ListItemText id={labelId} primary={todo.title} />
+                <ListItemSecondaryAction>
+                    <IconButton onClick={handleDelete} edge="end" aria-label="delete">
+                        <DeleteIcon />
+                    </IconButton>
+                </ListItemSecondaryAction>
+            </ListItem>
+            {loading ? <BackdropCustom /> : null}
+        </>
     );
 }

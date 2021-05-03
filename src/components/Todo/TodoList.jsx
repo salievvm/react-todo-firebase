@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function CheckboxList({ list, todos }) {
+export default function CheckboxList({ list, todos, onErase }) {
     const classes = useStyles();
     const [checked, setChecked] = React.useState([0]);
 
@@ -38,6 +38,7 @@ export default function CheckboxList({ list, todos }) {
                     todo={todo}
                     labelId={labelId}
                     checked={checked}
+                    onErase={onErase}
                     onCompleteChange={handleToggle} />
             })}
         </List>

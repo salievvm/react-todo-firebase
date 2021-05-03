@@ -25,11 +25,22 @@ export function add(collectionName, data, cb) {
     db.collection(collectionName).add(data)
         .then((docRef) => {
             console.log("Document written with ID: ", docRef.id);
-            cb();
+            if (typeof cb === 'function') cb();
         })
         .catch((error) => {
             console.error("Error adding document: ", error);
-            cb();
+            if (typeof cb === 'function') cb();
         });
+}
 
+export function erase(collectionName, id, cb) {
+    db.collection(collectionName).doc(id)
+        .delete()
+        .then(() => {
+            console.log("Document successfully deleted!");
+            if (typeof cb === 'function') cb();
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+            if (typeof cb === 'function') cb();
+        });
 }
