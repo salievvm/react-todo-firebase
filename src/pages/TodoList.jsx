@@ -4,41 +4,66 @@ import Loader from '../components/Loader';
 import './index.scss';
 
 import DBContext from '../contexts/db';
-
 import TodoList from '../components/Todo/TodoList';
 import TodoForm from '../components/Todo/TodoForm';
+import BackdropCustom from '../components/BackdropCustom'
 
-export default function TodoListPage({ match }){
-    const [ todos, setTodos ] = useState([]);
+export default function TodoListPage({ match }) {
+    const [todos, setTodos] = useState([]);
+    const [loading, setLoading] = React.useState(false);
+
     const db = useContext(DBContext);
     const matchCondition = ['listId', '==', match.params.listId];
 
-    useEffect(() => {
+    const getList = () => {
+        setLoading(true);
         db.get("todos")(collection => {
             return collection.where(...matchCondition)
         })
-            .then(res => setTodos(res));
+            .then(res => {
+                setTodos(res)
+                setLoading(false)
+            });
+    }
+
+    useEffect(() => {
+        getList(db, matchCondition, setTodos);
     }, [db, match.params.listId]);
 
-    let list;
+    const handleDelete = id => {
+        setLoading(true);
+        db.erase("todos", id, getList)
+    }
 
+    const handleUpdate = (id, completed) => {
+        setLoading(true);
+        db.update("todos", id, { completed }, getList)
+    };
+
+    const handleAdd = data => {
+        setLoading(true);
+        db.add("todos", data, getList);
+    }
+
+    let list;
     if (db.lists && db.lists.length) {
         list = db.lists.find(list => list.id === match.params.listId);
-    } 
+    }
 
     if (!list) return <Loader />;
 
     return (
         <div id="todo-list-page" className="page">
-            <TodoForm 
-                add={db.add}
+            <TodoForm
+                onAdd={handleAdd}
                 listId={list.id} />
             <TodoList
-                onUpdate={db.update}
-                onErase={db.erase}
+                onUpdate={handleUpdate}
+                onErase={handleDelete}
                 list={list}
                 todos={todos}
             />
+            {loading ? <BackdropCustom /> : null}
         </div>
     );
 }

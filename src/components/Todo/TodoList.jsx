@@ -9,12 +9,6 @@ import { useStyles } from './style';
 export default function CheckboxList({ todos, onErase, onUpdate }) {
     const classes = useStyles();
 
-    const [loading, setLoading] = React.useState(false);
-    const handleToggle = (id, completed) => {
-        setLoading(true);
-        onUpdate("todos", id, { completed }, setLoading(false))
-    };
-
     return (
         <>
             <List className={classes.root}>
@@ -26,10 +20,9 @@ export default function CheckboxList({ todos, onErase, onUpdate }) {
                         todo={todo}
                         labelId={labelId}
                         onErase={onErase}
-                        onCompleteChange={handleToggle} />
+                        onUpdate={onUpdate} />
                 })}
             </List>
-            {loading ? <BackdropCustom /> : null}
         </>
     );
 }

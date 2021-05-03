@@ -8,22 +8,12 @@ import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import BackdropCustom from '../BackdropCustom'
-
-export default function CheckboxList({ todo, labelId, onCompleteChange, onErase }) {
+export default function CheckboxList({ todo, labelId, onUpdate, onErase }) {
     const checked = todo.completed;
-
-    const [loading, setLoading] = React.useState(false);
-    const handleDelete = e => {
-        setLoading(true);
-        onErase("todos", todo.id, () => {
-            setLoading(false);
-        })
-    }
 
     return (
         <>
-            <ListItem key={todo.id} role={undefined} dense button onClick={() => onCompleteChange(todo.id, !checked)}>
+            <ListItem key={todo.id} role={undefined} dense button onClick={() => onUpdate(todo.id, !checked)}>
                 <ListItemIcon>
                     <Checkbox
                         edge="start"
@@ -35,12 +25,11 @@ export default function CheckboxList({ todo, labelId, onCompleteChange, onErase 
                 </ListItemIcon>
                 <ListItemText id={labelId} primary={todo.title} />
                 <ListItemSecondaryAction>
-                    <IconButton onClick={handleDelete} edge="end" aria-label="delete">
+                    <IconButton onClick={() => onErase(todo.id)} edge="end" aria-label="delete">
                         <DeleteIcon />
                     </IconButton>
                 </ListItemSecondaryAction>
             </ListItem>
-            {loading ? <BackdropCustom /> : null}
         </>
     );
 }
