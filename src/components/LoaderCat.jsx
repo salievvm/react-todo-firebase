@@ -1,8 +1,7 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-import logo_dark from '../catsby-dark.gif'
-import logo from '../catsby-light.gif'
+import { logo, logo_dark } from '../index'
 import '../App.scss';
 
 const useStyles = makeStyles((theme) => ({

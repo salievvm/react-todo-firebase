@@ -104,7 +104,6 @@ export default function MiniDrawer({ lists, title, handleDarkTheme }) {
                             to={item.to}
                             component={NavLink}
                             button
-                            // activeClassName="Mui-selected"
                             key={item.title}>
                             <ListItemIcon>{item.icon}</ListItemIcon>
                             <ListItemText primary={item.title} />
@@ -120,7 +119,7 @@ export default function MiniDrawer({ lists, title, handleDarkTheme }) {
                             )
                         )
                         return <ListItem
-                            to={'/' + item.id + '/'}
+                            to={'/' + item.id}
                             activeClassName="Mui-selected"
                             component={NavLink}
                             button key={item.title}>

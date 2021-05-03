@@ -39,7 +39,6 @@ export default function CheckboxList({ todo, labelId, onUpdate, onErase }) {
                         checked={checked}
                         onChange={() => onUpdate(todo.id, { completed: !checked })}
                         disableRipple
-                        // inputProps={{ 'aria-labelledby': labelId }}
                     />
                 </ListItemIcon>
                 {state.editing ?

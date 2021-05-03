@@ -4,6 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import LoaderCat from './LoaderCat';
+import { logo, logo_dark } from '../index'
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ModalDialog(props) {
     const classes = useStyles();
 
-    const fullScreen = false; //useMediaQuery(theme.breakpoints.down('sm'));
+    const fullScreen = false; 
 
     return (
         <div>
