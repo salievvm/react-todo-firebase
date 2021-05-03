@@ -23,7 +23,8 @@ export default function TodoForm(props) {
 
     const handleSubmit = e => {
         e.preventDefault();
-        onAdd({ title, listId })
+        onAdd({ title, listId });
+        setTitle('');
     }
 
     return (

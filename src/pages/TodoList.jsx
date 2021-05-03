@@ -35,9 +35,9 @@ export default function TodoListPage({ match }) {
         db.erase("todos", id, getList)
     }
 
-    const handleUpdate = (id, completed) => {
+    const handleUpdate = (id, data) => {
         setLoading(true);
-        db.update("todos", id, { completed }, getList)
+        db.update("todos", id, data, getList)
     };
 
     const handleAdd = data => {

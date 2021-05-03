@@ -93,6 +93,7 @@ export default function MiniDrawer({ lists, title }) {
                             to={item.to}
                             component={NavLink}
                             button
+                            // activeClassName="Mui-selected"
                             key={item.title}>
                             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                             <ListItemText primary={item.title} />
@@ -103,7 +104,8 @@ export default function MiniDrawer({ lists, title }) {
                 <List>
                     {lists.map((item, index) => (
                         <ListItem
-                        to={item.id}
+                            to={'/' + item.id + '/'}
+                            activeClassName="Mui-selected"
                             component={NavLink}
                             button key={item.title}>
                             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
