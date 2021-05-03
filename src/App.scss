@@ -1,10 +1,11 @@
 .app {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  
-  #app-content {
+    display: flex;
+    flex-direction: row;
     width: 100%;
-    background-color: #f0f0f0;
-  }
+
+    #app-content {
+        margin-top: 60px;
+        width: 100%;
+        background-color: #f0f0f0;
+    }
 }
